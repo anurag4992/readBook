@@ -1,0 +1,13 @@
+<%- include("partials/header.ejs") %>
+    <h1 class="header">You have <%= a  %> book matching that Id<a href="/logout" class="btn2 logout">Logout</a></h1>
+    <div class="card">
+        <h2 class="title">
+            <%= foundTitle %>
+        </h2>
+        <p class="desc">
+            <%= foundDesc %>
+        </p>
+    </div>
+
+
+    <%- include("partials/footer.ejs") %>

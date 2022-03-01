@@ -1,0 +1,38 @@
+<%- include("partials/header.ejs") %>
+
+
+
+  <!-- <div class="newBook" id="new">
+        <form action="/viewAll" method="post">
+        <span class="newTitle title">Title</span><br>
+        <input class="newInputTitle search" type="text" name="newTitle" placeholder="   Enter title" autocomplete="off" value="<%= arrTitle[id] %>"><br>
+        <span class="newDesc">Description</span> <br>
+        <textarea class="newInputDesc search" cols="50" rows="10" name="newDesc" placeholder="   Enter book text" autocomplete="off"><%= arrDesc[id] %></textarea>
+        <br>
+        <button type="submit" name="updates" value="" class="new signup">Update</button>
+        
+        </form>
+    </div> -->
+
+  <div class="container">
+    
+    <h1 class="header mt-3">Edit your existing file . . </h1>
+    <form action="/viewAll" method="post">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="text" class="form-control" name="newTitle" id="exampleFormControlInput1" placeholder="Enter title"
+          value="<%= arrTitle[id] %>">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+        <textarea class="form-control" name="newDesc" id="exampleFormControlTextarea1" rows="3"
+          placeholder="Enter book text"><%= arrDesc[id] %></textarea>
+      </div>
+      <button class="btn btn-lg btn-primary" type="submit" name="updates" value="<%= id %>"
+        class="new signup">Update</button>
+    </form>
+    
+  </div>
+
+
+  <%- include("partials/footer.ejs") %>

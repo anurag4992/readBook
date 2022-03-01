@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="newBook" id="new">
+        <form action="/add" method="post">
+            <span class="newTitle title">Title</span><br>
+            <input class="newInputTitle search" type="text" name="newTitle" placeholder="Enter title" value=""
+                autocomplete="off"><br>
+            <span class="newDesc">Description</span> <br>
+            <textarea class="newInputDesc search" cols="50" rows="10" name="newDesc" placeholder="Enter book text"
+                autocomplete="off" value=""></textarea>
+            <br>
+            <button type="submit" class="new signup">Submit</button>
+        </form>
+        <a class="new signup pb-10 pl-10 btn btn-lg" href="/">Home</a>
+    </div>
+
+
+
+    <%- include("partials/footer.ejs") %>

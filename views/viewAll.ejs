@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="header">You have <%= arrTitle.length %> books in your library<a href="/logout" class="btn2 logout">Logout</a></div>
+
+    <% for( let i=0; i < arrTitle.length; i++ ) { %>
+        <div class="twoForms">
+            <form action="/edit/<%= i %>" method="get" class="form1">
+                <div class="card">
+
+                    <h2 class="title">
+                        <%= arrTitle[i] %>
+                    </h2>
+                    <p class="desc">
+                        <%= arrDesc[i] %>
+                    </p>
+                </div>
+            
+                <button type="submit" name="edit" class="edit">Edit</button>
+                
+            </form>
+           
+            <form action="/delete" method="post" class="form2">
+                <button type="submit" name="delete" value="<%= i %> " class="delete">Delete</button>
+            </form>
+    
+        </div>
+
+        <% } %>
+
+
+        <%- include("partials/footer.ejs") %>

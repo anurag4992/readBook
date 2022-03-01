@@ -1,0 +1,29 @@
+<%- include("partials/header") %>
+
+
+    <div class="my-5 container p-4">
+        <form action="/<%= loginOrRegister %>" method="post">
+            <h1 class="mb-3" style="font-weight: bold;color: #FFB72B;">Enter <%= loginOrRegister %> credentials</h1>
+
+            <input type="text" name="username" class="form-control my-4 username" id="exampleFormControlInput1" placeholder="Enter username" required>
+
+            <input type="password" name="password" class="form-control my-4 username" id="exampleFormControlInput1" placeholder="Enter password" required>
+
+            <button class="btn btn-lg btn-warning" type="submit"><%= signinOrSignup %></button>
+            <% if(signinOrSignup!=="Sign up") {%> 
+                <br>
+                <div class="newUserText">New user ?</div>
+                <a href="/register" class="btn btn-lg btn-warning signup2" type="submit">Sign up</a>
+                <% } %> 
+        </form>
+        
+    </div>
+
+
+
+
+
+
+
+
+    <%- include("partials/footer") %>

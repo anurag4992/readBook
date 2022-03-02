@@ -161,10 +161,11 @@ app.post("/add", function (req, res) {
         else {
             foundUser.title.push(req.body.newTitle);
             foundUser.desc.push(req.body.newDesc);
-            foundUser.save();
+            foundUser.save(err, function(){
+                res.redirect("/viewAll");
+            });
         }
     });
-    res.redirect("/viewAll");
 });
 
 app.post("/edit", function (req, res) {
@@ -182,8 +183,9 @@ app.post("/delete", function (req, res) {
         else {
             foundUser.title.splice(deleted,1);
             foundUser.desc.splice(deleted,1);
-            foundUser.save();
-            res.redirect("/viewAll");
+            foundUser.save(err, function(){
+                res.redirect("/viewAll");
+            });
         }
     });
    
@@ -198,8 +200,10 @@ app.post("/viewAll", function (req, res) {
         else {
             foundUser.title.splice(edited,1,req.body.newTitle);
             foundUser.desc.splice(edited,1,req.body.newDesc);
-            foundUser.save();
-            res.redirect("/viewAll");
+            foundUser.save(err, function(){
+                res.redirect("/viewAll");
+            });
+            
         }
     });
     
@@ -215,9 +219,11 @@ app.post("/register", function (req, res) {
             passport.authenticate("local")(req, res, function () {
                 user.title = arrTitle;
                 user.desc = arrDesc;
-                user.save();
+                user.save(err, function(){
+                    res.redirect("/");
+                });
 
-                res.redirect("/");
+                
             });
         }
     });

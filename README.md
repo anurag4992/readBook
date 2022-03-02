@@ -1,7 +1,6 @@
-
-                                                            # readBook
+                                              readBook
                                      
-            readBook is an online digital library or book directory for cutsom books. Here an user can save his custom books online in his own account.
+            readBook is an online digital library or book directory for cutsom books. Here an user     can save his custom books online in his own account.
             It uses the RESTapi architecture for its development and making.
             
             The basic funtionality of this service is :
@@ -31,6 +30,6 @@
             A signed in user can logout from his account via logout.
             
     readBook is built using node.js and express.js in its backend.
-    The readBook site is hosted via the use of heroku at [https://stark-castle-43434.herokuapp.com/](https://stark-castle-43434.herokuapp.com/).
+    The readBook site is hosted via the use of heroku at [https://stark-castle-43434.herokuapp.com/](https://stark-castle-43434.herokuapp.com/)
     
     The data is managed using mongodb database cloud storage service.

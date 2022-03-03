@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs") %>
 
     <div class="newBook" id="new">
-        <form action="/add" method="post">
+        <form action="/add" method="post" enctype="multipart/form-data">
             <span class="newTitle title">Title</span><br>
             <input class="newInputTitle search" type="text" name="newTitle" placeholder="Enter title" value=""
                 autocomplete="off"><br>
@@ -9,7 +9,13 @@
             <textarea class="newInputDesc search" cols="50" rows="10" name="newDesc" placeholder="Enter book text"
                 autocomplete="off" value=""></textarea>
             <br>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Upload file</label>
+                <input type="file" class="form-control file" id="exampleFormControlInput1"
+                name="avatar" required multiple>
+            </div>
             <button type="submit" class="new signup">Submit</button>
+        
         </form>
         <a class="new signup pb-10 pl-10 btn btn-lg" href="/">Home</a>
     </div>

@@ -8,7 +8,8 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose")
     ;
 const req = require("express/lib/request");
-const { constant } = require("lodash");
+const { constant, indexOf } = require("lodash");
+const multer=require("multer");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs")
 
 app.use(express.static("public"));
+app.use('/uploads', express.static('uploads'));
 
 app.use(session({
     secret: "ourLittleSecret",
@@ -29,15 +31,21 @@ app.use(passport.session());
 
 mongoose.connect("mongodb+srv://anurag4992:Anhourlat6@cluster0.j80jq.mongodb.net/userDB");
 
+const itemSchema= new mongoose.Schema({
+    item: Array
+});
+
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     title: Array,
-    desc: Array
+    desc: Array,
+    file: [itemSchema]
 });
 
 userSchema.plugin(passportLocalMongoose);
 
+const Item= mongoose.model("Item", itemSchema)
 const User = mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
@@ -54,8 +62,18 @@ passport.deserializeUser(function (user, cb) {
     });
 });
 
-const arrTitle = ["Book 1", "Book 2"];
-const arrDesc = ["This is content part of book 1", "This is content part of book 2"]; 3
+
+let fileItem=new Array();
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+})
+var upload = multer({ storage: storage })
 
 
 app.get("/", function (req, res) {
@@ -75,7 +93,17 @@ app.get("/viewAll", function (req, res) {
                 console.log(err);
             }
             else {
-                res.render("viewAll", { arrTitle: foundUser.title, arrDesc: foundUser.desc});
+                for (let i = 0; i < foundUser.file.length; i++) {
+                    const element=foundUser.file[i];
+                    const e=new Array();
+                    for (let j = 0; j < element.item.length; j++) {
+                        e.push(element.item[j]);
+                    } 
+                    fileItem.push(e);
+                }
+                console.log(fileItem);
+                res.render("viewAll", { arrTitle: foundUser.title, arrDesc: foundUser.desc, arrFile: fileItem});
+                fileItem=new Array();
             }
         });
     }
@@ -152,7 +180,7 @@ app.post("/viewById", function (req, res) {
 
 });
 
-app.post("/add", function (req, res) {
+app.post("/add",  upload.array('avatar', 12),function (req, res) {
 
     User.findById({ _id: req.user.id }, function (err, foundUser) {
         if (err) {
@@ -161,10 +189,18 @@ app.post("/add", function (req, res) {
         else {
             foundUser.title.push(req.body.newTitle);
             foundUser.desc.push(req.body.newDesc);
+            const newItem=new Item({
+                item: []
+            });
+            req.files.forEach(element => {
+                newItem.item.push("http://localhost:3000/uploads/"+element.filename);
+            });
+            foundUser.file.push(newItem);
             foundUser.save(err, function(){
                 res.redirect("/viewAll");
             });
         }
+        // "localhost:3000/uploads/"+req.files[1].filename
     });
 });
 
@@ -183,6 +219,7 @@ app.post("/delete", function (req, res) {
         else {
             foundUser.title.splice(deleted,1);
             foundUser.desc.splice(deleted,1);
+            foundUser.file.splice(deleted, 1)
             foundUser.save(err, function(){
                 res.redirect("/viewAll");
             });
@@ -217,8 +254,6 @@ app.post("/register", function (req, res) {
         }
         else {
             passport.authenticate("local")(req, res, function () {
-                user.title = arrTitle;
-                user.desc = arrDesc;
                 user.save(err, function(){
                     res.redirect("/");
                 });
@@ -246,7 +281,7 @@ app.post("/login", function (req, res) {
             });
         }
     });
-
+ 
 });
 
 let port = process.env.PORT;

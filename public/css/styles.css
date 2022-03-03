@@ -155,7 +155,7 @@ body,html {
 .form1, .twoForms{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-self: center;
 }
 
@@ -168,8 +168,6 @@ body,html {
     padding: 1vw;
 }
 .edit, .delete {
-    width: 10%;
-    margin: 0 2vw;
     height: 2vw;
     align-self: center;
     background-color: #B5FE83;
@@ -177,6 +175,14 @@ body,html {
     box-shadow: 3px 3px .5vw black;
     border: 1px solid black;
     border-radius: .5vw;
+}
+
+.edit {
+    width: 7%;
+}
+
+.files {
+    padding-bottom: 1.2vw;
 }
 
 .delete:hover, .edit:hover {
@@ -187,7 +193,9 @@ body,html {
 }
 
 .delete {
-    width: 100%;
+    width: 120%;
+    position: relative;
+    right: 6vw;
 }
 
 .username {
@@ -205,6 +213,7 @@ body,html {
     left: 5vw;
 }
 
-#hidden {
-    display: none;
+.file {
+    border: 1px solid #FFB72B;
+    width: 50%;
 }

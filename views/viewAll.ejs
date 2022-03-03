@@ -1,6 +1,7 @@
 <%- include("partials/header.ejs") %>
 
-    <div class="header">You have <%= arrTitle.length %> books in your library<a href="/logout" class="btn2 logout">Logout</a></div>
+    <div class="header">You have <%= arrTitle.length %> books in your library<a href="/logout"
+                class="btn2 logout">Logout</a></div>
 
     <% for( let i=0; i < arrTitle.length; i++ ) { %>
         <div class="twoForms">
@@ -13,19 +14,34 @@
                     <p class="desc">
                         <%= arrDesc[i] %>
                     </p>
+                    
                 </div>
-            
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle files edit" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Files
+                    </button>
+                    <ul class="dropdown-menu">
+                            <!-- there was a link here --> 
+                            <% for (let j = 0; j < arrFile[i].length; j++) { %>
+                               <% const e = arrFile[i][j]; %>  
+                                <li><a class="dropdown-item" href="<%= e %>">Item <%= j+1 %></a></li>
+                           <% } %>
+                      
+                    </ul>
+                </div>
+
                 <button type="submit" name="edit" class="edit">Edit</button>
-                
+
             </form>
-           
+
             <form action="/delete" method="post" class="form2">
-                <button type="submit" name="delete" value="<%= i %> " class="delete">Delete</button>
+                <button type="submit" name="delete" value="<%= i %>" class="delete">Delete</button>
             </form>
-    
+
         </div>
 
         <% } %>
 
-
-        <%- include("partials/footer.ejs") %>
+            <%- include("partials/footer.ejs") %>

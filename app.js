@@ -193,7 +193,7 @@ app.post("/add",  upload.array('avatar', 12),function (req, res) {
                 item: []
             });
             req.files.forEach(element => {
-                newItem.item.push("http://localhost:3000/uploads/"+element.filename);
+                newItem.item.push("https://stark-castle-43434.herokuapp.com/uploads/"+element.filename);
             });
             foundUser.file.push(newItem);
             foundUser.save(err, function(){

@@ -1,5 +1,4 @@
 const {User}= require("../models/user");
-const {pass}= require("../passport/pass");
 const {upload}= require("../multer/upload");
 
 let fileItem = new Array();
